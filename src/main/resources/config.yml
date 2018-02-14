@@ -1,0 +1,14 @@
+#
+# PlayerCount
+#
+update_message: true
+use_custom_file: true
+first_join:
+  use: true
+  broadcast: true
+  text: '&a&o{player}&f&o is the (&e&o{total}Th.&r)&o player on this server!'
+default_join:
+  use: true
+  broadcast: false
+  text: '&f&oYou joined as (&e&o{number}Th.&r)&o on this server!'
+counts: 1
