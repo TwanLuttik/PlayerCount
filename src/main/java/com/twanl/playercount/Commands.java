@@ -3,14 +3,10 @@ package com.twanl.playercount;
 import com.twanl.playercount.util.ConfigManager;
 import com.twanl.playercount.util.Strings;
 import net.minecraft.server.v1_12_R1.CommandExecute;
-import net.minecraft.server.v1_12_R1.IChatBaseComponent;
-import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_12_R1.PlayerConnection;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 

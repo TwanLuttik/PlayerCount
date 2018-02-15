@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Test Server">
+    <output-path>D:/Users/Twan/Desktop/LocalHost/plugins</output-path>
+    <root id="archive" name="PlayerCount.jar">
+      <element id="module-output" name="PlayerCount" />
+    </root>
+  </artifact>
+</component>

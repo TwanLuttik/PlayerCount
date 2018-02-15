@@ -9,7 +9,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 
 public class PlayerCount extends JavaPlugin {
 
@@ -18,7 +17,6 @@ public class PlayerCount extends JavaPlugin {
     protected PluginDescriptionFile pdfFile = getDescription();
     private final String PluginVersionOn = ChatColor.GREEN + "(" + pdfFile.getVersion() + ")";
     private final String PluginVersionOff = ChatColor.RED + "(" + pdfFile.getVersion() + ")";
-    public File c1;
 
 
     public void onEnable() {
@@ -44,7 +42,6 @@ public class PlayerCount extends JavaPlugin {
         }
 
 
-
         loadConfigManager();
         LOAD();
         Bukkit.getConsoleSender().sendMessage(Strings.logName + ChatColor.RED + "Has been enabled " + PluginVersionOn);
@@ -66,7 +63,6 @@ public class PlayerCount extends JavaPlugin {
 
         //LoadConfig
         getConfig().options().copyDefaults(true);
-        //getConfig().set("Worlds", addWorlds());
         saveConfig();
     }
 
