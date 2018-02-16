@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,6 +18,7 @@ public class Commands extends CommandExecute implements Listener, CommandExecuto
     private PlayerCount plugin = PlayerCount.getPlugin(PlayerCount.class);
     public ConfigManager cfgM;
     public File playersF;
+    public File cF;
 
 
 
@@ -52,10 +52,17 @@ public class Commands extends CommandExecute implements Listener, CommandExecuto
 
             } else if (args[0].equalsIgnoreCase("reload")) {
                 if (p.hasPermission("playercount.reload")) {
-                    plugin.saveDefaultConfig();
-                    plugin.reloadConfig();
-                    plugin.getServer().getConsoleSender().sendMessage(Strings.logName + Strings.green + "Config File Reloaded Succsesfully!");
-                    p.sendMessage(Strings.goldI + "Config File Reloaded Succsesfully!");
+                    cF = new File(plugin.getDataFolder(), "config.yml");
+                    if (!cF.exists()) {
+                        p.sendMessage(Strings.red + "config.yml file is not found!\n" +
+                                Strings.green + "Creating a new config.yml file!");
+                        plugin.getConfig().options().copyDefaults(true);
+                        plugin.saveConfig();
+                    } else {
+                        plugin.saveDefaultConfig();
+                        plugin.reloadConfig();
+                        p.sendMessage(Strings.green + "Config File Reloaded Succsesfully!");
+                    }
                 } else {
                     p.sendMessage(Strings.noPerm);
                 }

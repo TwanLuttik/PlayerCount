@@ -2,6 +2,7 @@ package com.twanl.playercount;
 
 import com.twanl.playercount.events.JoinEvent;
 import com.twanl.playercount.util.ConfigManager;
+import com.twanl.playercount.util.Metrics;
 import com.twanl.playercount.util.Strings;
 import com.twanl.playercount.util.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -41,7 +42,7 @@ public class PlayerCount extends JavaPlugin {
             }
         }
 
-
+        Metrics metrics = new Metrics(this);
         loadConfigManager();
         LOAD();
         Bukkit.getConsoleSender().sendMessage(Strings.logName + ChatColor.RED + "Has been enabled " + PluginVersionOn);
