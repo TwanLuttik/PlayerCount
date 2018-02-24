@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.List;
 import java.util.UUID;
 
 public class JoinEvent implements Listener {
@@ -33,7 +34,7 @@ public class JoinEvent implements Listener {
             if (p.hasPermission("playercounts.update")) {
                 final Player p1 = e.getPlayer();
                 final PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-                final PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"PlayerCount is outdated!\",\"color\":\"red\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/playercount.52758//download?version=175588\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Click to download the newest version of PlayerCount\",\"color\":\"gold\"}]}}}"));
+                final PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"PlayerCount is outdated!\",\"color\":\"red\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/playercount.52758/download?version=208548\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Click to download the newest version of PlayerCount\",\"color\":\"gold\"}]}}}"));
 
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     public UpdateChecker checker;
@@ -69,8 +70,17 @@ public class JoinEvent implements Listener {
         UUID uuid = p.getUniqueId();
         int counts = plugin.getConfig().getInt("counts");
 
+
+
+        List<String> list1 = plugin.getConfig().getStringList("first_join.text");
+        List<String> list2 = plugin.getConfig().getStringList("default_join.text");
+        String toFirstJoin = String.join(""+ Strings.reset + "\n", list1);
+        String toDefaultJoin = String.join(""+ Strings.reset + "\n", list2);
+
+        /*
         String toFirstJoin = plugin.getConfig().getString("first_join.text");
         String toDefaultJoin = plugin.getConfig().getString("default_join.text");
+        */
 
 
         String replacedToFirstJoin = toFirstJoin
