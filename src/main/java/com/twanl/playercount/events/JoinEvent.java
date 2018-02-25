@@ -9,12 +9,15 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_12_R1.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,7 +73,8 @@ public class JoinEvent implements Listener {
         UUID uuid = p.getUniqueId();
         int counts = plugin.getConfig().getInt("counts");
 
-
+        List<String> worlds = new ArrayList<String>();
+        worlds = plugin.getConfig().getStringList("enable_worlds");
 
         List<String> list1 = plugin.getConfig().getStringList("first_join.text");
         List<String> list2 = plugin.getConfig().getStringList("default_join.text");
@@ -102,8 +106,13 @@ public class JoinEvent implements Listener {
                 plugin.saveConfig();
 
                 if (plugin.getConfig().getBoolean("first_join.broadcast")) {
-                    Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
+                    for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+                        if (worlds.contains(p1.getWorld().getName())) {
+                            p1.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
+                        }
+                    }
                 } else {
+
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
                 }
             }
@@ -124,9 +133,15 @@ public class JoinEvent implements Listener {
 
                 //send the message
                 if (plugin.getConfig().getBoolean("first_join.broadcast")) {
-                    Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
+                    for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+                        if (worlds.contains(p1.getWorld().getName())) {
+                            p1.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
+                        }
+                    }
+
                 } else {
                     p.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToFirstJoin));
+
                 }
 
                 plugin.getConfig().set("counts", counts + 1);
@@ -139,7 +154,15 @@ public class JoinEvent implements Listener {
                     if (cfgM.getPlayers().contains("uuid." + uuid)) {
 
                         if (plugin.getConfig().getBoolean("default_join.broadcast")) {
-                            Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', replacedToDefaultJoin));
+
+                            for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+                                if (worlds.contains(p1.getWorld().getName())) {
+                                    p1.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToDefaultJoin));
+
+                                }
+                            }
+
+
                         } else {
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', replacedToDefaultJoin));
                         }

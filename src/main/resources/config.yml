@@ -16,3 +16,7 @@ default_join:
   - '&f&oYou joined as (&e&o{number}#&r)&o on this server!'
   - '&f&oThank you for playing!'
 counts: 1
+enable_worlds:
+- world
+- world_nether
+- world_the_end
