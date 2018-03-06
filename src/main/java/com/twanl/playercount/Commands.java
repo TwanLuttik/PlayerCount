@@ -2,16 +2,25 @@ package com.twanl.playercount;
 
 import com.twanl.playercount.util.ConfigManager;
 import com.twanl.playercount.util.Strings;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_12_R1.CommandExecute;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+
 import java.io.File;
 import java.io.IOException;
+
 
 public class Commands extends CommandExecute implements Listener, CommandExecutor {
 
@@ -85,6 +94,17 @@ public class Commands extends CommandExecute implements Listener, CommandExecuto
                 if (p.hasPermission("playercount.reset")) {
                     if (plugin.getConfig().getBoolean("use_custom_file")) {
 
+
+
+
+
+
+
+
+
+
+
+
                         playersF = new File(plugin.getDataFolder(), "PlayerData.yml");
                         if (playersF.exists()) {
                             playersF.delete();
@@ -98,6 +118,7 @@ public class Commands extends CommandExecute implements Listener, CommandExecuto
                                 p.sendMessage(Strings.redI + "failed to create a new PlayerData.yml file!");
                             }
                         }
+
 
                     } else {
                         p.sendMessage(Strings.redI + "This support only when use_custom_file is enabled!");
@@ -115,5 +136,8 @@ public class Commands extends CommandExecute implements Listener, CommandExecuto
 
         return true;
     }
+
+
+
 
 }

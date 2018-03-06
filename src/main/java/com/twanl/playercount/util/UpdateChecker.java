@@ -14,8 +14,8 @@ public class UpdateChecker {
 
 
     public UpdateChecker(PlayerCount plugin) {
-        this.plugin = plugin;
-        this.version = getLatestVersion();
+        plugin = plugin;
+        version = getLatestVersion();
     }
 
     public String getLatestVersion() {
@@ -31,7 +31,7 @@ public class UpdateChecker {
             }
         } catch (Exception ex) {
             System.out.println("---------------------------------");
-            this.plugin.getLogger().info("Failed to check for a update on spigot.");
+            plugin.getLogger().info("Failed to check for a update on spigot.");
             System.out.println("---------------------------------");
         }
         return null;
@@ -39,10 +39,10 @@ public class UpdateChecker {
     }
 
     public boolean isConnected() {
-        return this.version != null;
+        return version != null;
     }
 
     public boolean hasUpdate() {
-        return !this.version.equals(this.plugin.getDescription().getVersion());
+        return !version.equals(plugin.getDescription().getVersion());
     }
 }

@@ -22,14 +22,14 @@ public class PlayerCount extends JavaPlugin {
 
     public void onEnable() {
 
-        this.checker = new UpdateChecker(this);
-        if (this.checker.isConnected()) {
-            if (this.checker.hasUpdate()) {
+        checker = new UpdateChecker(this);
+        if (checker.isConnected()) {
+            if (checker.hasUpdate()) {
                 getServer().getConsoleSender().sendMessage(Strings.green + "");
                 getServer().getConsoleSender().sendMessage(Strings.green + "------------------------");
                 getServer().getConsoleSender().sendMessage(Strings.red + "PlayerCount is outdated!");
-                getServer().getConsoleSender().sendMessage(Strings.white + "Newest version: " + this.checker.getLatestVersion());
-                getServer().getConsoleSender().sendMessage(Strings.white + "Your version: " + Strings.green + this.getDescription().getVersion());
+                getServer().getConsoleSender().sendMessage(Strings.white + "Newest version: " + checker.getLatestVersion());
+                getServer().getConsoleSender().sendMessage(Strings.white + "Your version: " + Strings.green + getDescription().getVersion());
                 getServer().getConsoleSender().sendMessage("Please download the new version at https://www.spigotmc.org/resources/playercount.52758/download?version=208548");
                 getServer().getConsoleSender().sendMessage(Strings.green + "------------------------");
                 getServer().getConsoleSender().sendMessage(Strings.green + "");
@@ -44,7 +44,7 @@ public class PlayerCount extends JavaPlugin {
 
         Metrics metrics = new Metrics(this);
         loadConfigManager();
-        LOAD();
+        Load();
         Bukkit.getConsoleSender().sendMessage(Strings.logName + ChatColor.RED + "Has been enabled " + PluginVersionOn);
     }
 
@@ -54,7 +54,7 @@ public class PlayerCount extends JavaPlugin {
 
 
 
-    public void LOAD() {
+    public void Load() {
         // Register listeners
         getServer().getPluginManager().registerEvents(new JoinEvent(), this);
 
@@ -73,6 +73,7 @@ public class PlayerCount extends JavaPlugin {
         cfgM.savePlayers();
         cfgM.reloadplayers();
     }
+
 
 
 }
