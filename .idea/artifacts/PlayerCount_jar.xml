@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="PlayerCount:jar">
-    <output-path>D:/Users/Twan/Desktop/testings/Hub/plugins</output-path>
+    <output-path>D:/Users/Twan/Desktop/LocalHost/plugins</output-path>
     <root id="archive" name="PlayerCount.jar">
       <element id="module-output" name="PlayerCount" />
     </root>
