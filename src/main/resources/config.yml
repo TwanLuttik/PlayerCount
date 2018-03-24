@@ -1,21 +1,37 @@
 #
-# PlayerCount
+# PlayerCount, Created By Twan L
 #
 update_message: true
 use_custom_file: true
+
+# this is when a player joined the server for the first time
 first_join:
   use: true
   broadcast: true
   text:
   - '&a&o{player}&f&o is the (&e&o{total}#&r)&o player on this server!'
   - '&f&oThank you for playing!'
+
+# this is when a player already joined the server
 default_join:
   use: true
   broadcast: false
   text:
   - '&f&oYou joined as (&e&o{number}#&r)&o on this server!'
   - '&f&oThank you for playing!'
-counts: 1
+
+
+# if use_custom_file = false, than you can use only a first time message
+# this is only when a player for the first time joined
+# Placeholders: {players} {number}
+message:
+  use: true
+  broadcast: true
+  text:
+  - ''
+  - ''
+
+# enable your worlds where the message would be send
 enable_worlds:
 - world
 - world_nether
