@@ -60,7 +60,7 @@ public class PlayerCount extends JavaPlugin {
 
         // Register commands
         Commands commands = new Commands();
-        getCommand("pc").setExecutor(commands);
+        getCommand("playercount").setExecutor(commands);
 
         //LoadConfig
         getConfig().options().copyDefaults(true);
