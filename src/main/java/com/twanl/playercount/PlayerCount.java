@@ -1,5 +1,14 @@
 package com.twanl.playercount;
 
+import com.twanl.playercount.NMS.VersionHandler;
+import com.twanl.playercount.NMS.v1_10.v1_10_R1;
+import com.twanl.playercount.NMS.v1_11.v1_11_R1;
+import com.twanl.playercount.NMS.v1_12.v1_12_R1;
+import com.twanl.playercount.NMS.v1_8.v1_8_R1;
+import com.twanl.playercount.NMS.v1_8.v1_8_R2;
+import com.twanl.playercount.NMS.v1_8.v1_8_R3;
+import com.twanl.playercount.NMS.v1_9.v1_9_R1;
+import com.twanl.playercount.NMS.v1_9.v1_9_R2;
 import com.twanl.playercount.events.JoinEvent;
 import com.twanl.playercount.util.ConfigManager;
 import com.twanl.playercount.util.Metrics;
@@ -13,7 +22,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlayerCount extends JavaPlugin {
 
+
     public ConfigManager cfgM;
+    public VersionHandler nms;
     private UpdateChecker checker;
     protected PluginDescriptionFile pdfFile = getDescription();
     private final String PluginVersionOn = ChatColor.GREEN + "(" + pdfFile.getVersion() + ")";
@@ -22,6 +33,7 @@ public class PlayerCount extends JavaPlugin {
 
     public void onEnable() {
 
+        getServerVersion();
         checker = new UpdateChecker(this);
         if (checker.isConnected()) {
             if (checker.hasUpdate()) {
@@ -63,8 +75,9 @@ public class PlayerCount extends JavaPlugin {
         getCommand("playercount").setExecutor(commands);
 
         //LoadConfig
-        getConfig().options().copyDefaults(true);
-        saveConfig();
+        //getConfig().options().copyDefaults(true);
+        //saveConfig();
+        saveDefaultConfig();
     }
 
     public void loadConfigManager() {
@@ -72,6 +85,32 @@ public class PlayerCount extends JavaPlugin {
         cfgM.setup();
         cfgM.savePlayers();
         cfgM.reloadplayers();
+    }
+
+    private void getServerVersion() {
+        String a = getServer().getClass().getPackage().getName();
+        String version = a.substring(a.lastIndexOf('.') + 1);
+
+        // Check
+        if (version.equalsIgnoreCase("v1_8_R1")) {
+            nms = new v1_8_R1();
+        } else if (version.equalsIgnoreCase("v1_8_R2")) {
+            nms = new v1_8_R2();
+        } else if (version.equalsIgnoreCase("v1_8_R3")) {
+            nms = new v1_8_R3();
+        } else if (version.equalsIgnoreCase("v1_9_R1")) {
+            nms = new v1_9_R1();
+        } else if (version.equalsIgnoreCase("v1_9_R2")) {
+            nms = new v1_9_R2();
+        } else if (version.equalsIgnoreCase("v1_10_R1")) {
+            nms = new v1_10_R1();
+        } else if (version.equalsIgnoreCase("v1_11_R1")) {
+            nms = new v1_11_R1();
+        } else if (version.equalsIgnoreCase("v1_12_R1")) {
+            nms = new v1_12_R1();
+        } else {
+            getServer().getConsoleSender().sendMessage(Strings.red + "This plugin wil not work properly with version" + version);
+        }
     }
 
 
