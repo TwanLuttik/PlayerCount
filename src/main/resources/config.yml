@@ -28,8 +28,8 @@ message:
   use: true
   broadcast: true
   text:
-  - ''
-  - ''
+  - '&a&o{player}&f&o is the (&e&o{number}#&r)&o player on this server!'
+  - '&f&oThank you for playing!'
 
 # enable your worlds where the message would be send
 enable_worlds:
