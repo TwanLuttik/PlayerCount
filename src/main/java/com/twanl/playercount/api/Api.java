@@ -6,8 +6,12 @@ import com.twanl.playercount.util.Strings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 public class Api {
@@ -21,20 +25,15 @@ public class Api {
         Player p = Bukkit.getPlayer(uuid);
         cfgM.setup();
 
-
         String playerUUID = String.valueOf(uuid);
-
 
         // player not exist in file
         if (!cfgM.getPlayers().contains(playerUUID)) {
-
-
             int counts = cfgM.getPlayers().getInt("counts");
             cfgM.getPlayers().set("counts", counts +1);
 
             cfgM.getPlayers().set(playerUUID + ".place", counts +1);
             cfgM.savePlayers();
-
 
 
             // send the message
@@ -43,8 +42,6 @@ public class Api {
             defaultMessage(uuid);
 
         }
-
-
     }
 
     public void serverSide (UUID uuid) {
@@ -146,10 +143,49 @@ public class Api {
                 Strings.translateColorCodes(p, replacedMessageJoin);
             }
         }
-
-
-
     }
+
+
+
+    public void recoverPlayers(Player p) {
+        cfgM.setup();
+
+        File f = new File("server.properties");
+        String ValueWas = getString("level-name", f);
+
+        File folder = new File(plugin.getServer().getWorldContainer().getAbsolutePath() + "/" + ValueWas + "/playerdata/");
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                String uuid = listOfFiles[i].getName().replace(".dat", "");
+                //p.sendMessage(uuid);
+
+                if (!cfgM.getPlayers().contains(uuid)) {
+                    int counts = cfgM.getPlayers().getInt("counts");
+                    cfgM.getPlayers().set("counts", counts +1);
+                    cfgM.savePlayers();
+
+                    cfgM.getPlayers().set(uuid + ".place", counts +1);
+                    cfgM.savePlayers();
+                }
+
+            }
+        }
+    }
+
+    private static String getString(String s, File f) {
+        Properties pr = new Properties();
+        try {
+            FileInputStream in = new FileInputStream(f);
+            pr.load(in);
+            String string = pr.getProperty(s);
+            return string;
+        } catch (IOException e) {
+
+        } return "";
+    }
+
 
 
 
