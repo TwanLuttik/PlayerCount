@@ -38,8 +38,52 @@ public class Api {
 
             // send the message
             firstTimeMessage(uuid);
+            if (!plugin.getConfig().getBoolean("first_join.broadcast_title")) {
+
+                String title = (String) plugin.getConfig().get("first_join.title");
+                String titleColor = (String) Strings.translateColorCodes1(title);
+                String replacetitleColor = titleColor
+                        .replace("{player}", p.getName())
+                        .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                String subTitle = (String) plugin.getConfig().get("first_join.subtitle");
+                String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                String replacesubTitleColor = subTitleColor
+                        .replace("{player}", p.getName())
+                        .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                int time = plugin.getConfig().getInt("first_join.time") * 20;
+                plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+            }
+
+
+
         } else {
             defaultMessage(uuid);
+            if (!plugin.getConfig().getBoolean("default_join.broadcast_title")) {
+
+                String title = (String) plugin.getConfig().get("default_join.title");
+                String titleColor = (String) Strings.translateColorCodes1(title);
+                String replacetitleColor = titleColor
+                        .replace("{player}", p.getName())
+                        .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                String subTitle = (String) plugin.getConfig().get("default_join.subtitle");
+                String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                String replacesubTitleColor = subTitleColor
+                        .replace("{player}", p.getName())
+                        .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                int time = plugin.getConfig().getInt("default_join.time") * 20;
+                plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+            }
 
         }
     }
@@ -55,6 +99,26 @@ public class Api {
             cfgM.savePlayers();
 
             serverSideMessage(uuid);
+            if (!plugin.getConfig().getBoolean("message.broadcast")) {
+                String title = (String) plugin.getConfig().get("message.title");
+                String titleColor = (String) Strings.translateColorCodes1(title);
+                String replacetitleColor = titleColor
+                        .replace("{player}", p.getName())
+                        .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                String subTitle = (String) plugin.getConfig().get("message.subtitle");
+                String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                String replacesubTitleColor = subTitleColor
+                        .replace("{player}", p.getName())
+                        .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                int time = plugin.getConfig().getInt("message.time") * 20;
+                plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+            }
+
+
         }
 
     }
@@ -76,11 +140,71 @@ public class Api {
                 .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
 
 
-        //send the message
+        for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+            if (worlds.contains(p1.getWorld().getName())) {
+
+                if (plugin.getConfig().getBoolean("first_join.use")) {
+                    if (plugin.getConfig().getBoolean("first_join.broadcast")) {
+                        Strings.translateColorCodes(p1, replacedToFirstJoin);
+
+                    } else {
+                        Strings.translateColorCodes(p, replacedToFirstJoin);
+
+                    }
+                }
+
+
+                if (plugin.getConfig().getBoolean("first_join.broadcast_title")) {
+                    String title = (String) plugin.getConfig().get("first_join.title");
+                    String titleColor = (String) Strings.translateColorCodes1(title);
+                    String replacetitleColor = titleColor
+                            .replace("{player}", p.getName())
+                            .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                    String subTitle = (String) plugin.getConfig().get("first_join.subtitle");
+                    String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                    String replacesubTitleColor = subTitleColor
+                            .replace("{player}", p.getName())
+                            .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                    int time = plugin.getConfig().getInt("first_join.time") * 20;
+                    plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+                }
+
+
+            }
+        }
+
+/*
         if (plugin.getConfig().getBoolean("first_join.broadcast")) {
             for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
                 if (worlds.contains(p1.getWorld().getName())) {
                     Strings.translateColorCodes(p1, replacedToFirstJoin);
+
+                    if (plugin.getConfig().getBoolean("first_join.broadcast_title")) {
+                        String title = (String) plugin.getConfig().get("first_join.title");
+                        String titleColor = (String) Strings.translateColorCodes1(title);
+                        String replacetitleColor = titleColor
+                                .replace("{player}", p.getName())
+                                .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                                .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                        String subTitle = (String) plugin.getConfig().get("first_join.subtitle");
+                        String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                        String replacesubTitleColor = subTitleColor
+                                .replace("{player}", p.getName())
+                                .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                                .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                        int time = plugin.getConfig().getInt("first_join.time") * 20;
+                        plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+                    }
                 }
             }
 
@@ -88,6 +212,7 @@ public class Api {
             Strings.translateColorCodes(p, replacedToFirstJoin);
 
         }
+        */
 
     }
 
@@ -106,17 +231,80 @@ public class Api {
                 .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
                 .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
 
+
+        for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+            if (worlds.contains(p1.getWorld().getName())) {
+
+                if (plugin.getConfig().getBoolean("default_join.use")) {
+                    if (plugin.getConfig().getBoolean("default_join.broadcast")) {
+                        Strings.translateColorCodes(p1, replacedToDefaultJoin);
+
+                    } else {
+                        Strings.translateColorCodes(p, replacedToDefaultJoin);
+                    }
+                }
+
+                if (plugin.getConfig().getBoolean("default_join.broadcast_title")) {
+
+                    String title = (String) plugin.getConfig().get("default_join.title");
+                    String titleColor = (String) Strings.translateColorCodes1(title);
+                    String replacetitleColor = titleColor
+                            .replace("{player}", p.getName())
+                            .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                    String subTitle = (String) plugin.getConfig().get("default_join.subtitle");
+                    String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                    String replacesubTitleColor = subTitleColor
+                            .replace("{player}", p.getName())
+                            .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                    int time = plugin.getConfig().getInt("default_join.time") * 20;
+                    plugin.nms.sendTitleMessage(p1, replacetitleColor, replacesubTitleColor, time);
+                }
+
+            }
+
+        }
+
+/*
         if (plugin.getConfig().getBoolean("default_join.use")) {
+
             if (plugin.getConfig().getBoolean("default_join.broadcast")) {
                 for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
                     if (worlds.contains(p1.getWorld().getName())) {
                         Strings.translateColorCodes(p1, replacedToDefaultJoin);
+
+
+                        if (plugin.getConfig().getBoolean("default_join.broadcast_title")) {
+
+                            String title = (String) plugin.getConfig().get("default_join.title");
+                            String titleColor = (String) Strings.translateColorCodes1(title);
+                            String replacetitleColor = titleColor
+                                    .replace("{player}", p.getName())
+                                    .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                                    .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                            String subTitle = (String) plugin.getConfig().get("default_join.subtitle");
+                            String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                            String replacesubTitleColor = subTitleColor
+                                    .replace("{player}", p.getName())
+                                    .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                                    .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                            int time = plugin.getConfig().getInt("default_join.time") * 20;
+                            plugin.nms.sendTitleMessage(p1, replacetitleColor, replacesubTitleColor, time);
+                        }
                     }
                 }
             } else {
                 Strings.translateColorCodes(p, replacedToDefaultJoin);
             }
         }
+        */
     }
 
     private void serverSideMessage(UUID uuid) {
@@ -132,17 +320,76 @@ public class Api {
                 .replace("{player}", p.getName())
                 .replace("{number}", String.valueOf(cfgM.getPlayers().getInt("counts")));
 
+
+
+
+
+        for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
+            if (worlds.contains(p1.getWorld().getName())) {
+
+                if (plugin.getConfig().getBoolean("message.use")) {
+                    if (plugin.getConfig().getBoolean("message.broadcast")) {
+                        Strings.translateColorCodes(p1, replacedMessageJoin);
+                    } else {
+                        Strings.translateColorCodes(p, replacedMessageJoin);
+                    }
+                }
+
+                if (plugin.getConfig().getBoolean("message.broadcast_title")) {
+                    String title = (String) plugin.getConfig().get("message.title");
+                    String titleColor = (String) Strings.translateColorCodes1(title);
+                    String replacetitleColor = titleColor
+                            .replace("{player}", p.getName())
+                            .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                    String subTitle = (String) plugin.getConfig().get("message.subtitle");
+                    String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                    String replacesubTitleColor = subTitleColor
+                            .replace("{player}", p.getName())
+                            .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                    int time = plugin.getConfig().getInt("message.time") * 20;
+                    plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+                }
+
+            }
+        }
+
+
+        /*
         if (plugin.getConfig().getBoolean("message.use")) {
             if (plugin.getConfig().getBoolean("message.broadcast")) {
                 for (Player p1 : Bukkit.getServer().getOnlinePlayers()) {
                     if (worlds.contains(p1.getWorld().getName())) {
                         Strings.translateColorCodes(p1, replacedMessageJoin);
+
+                        if (plugin.getConfig().getBoolean("message.broadcast_title")) {
+                            String title = (String) plugin.getConfig().get("message.title");
+                            String titleColor = (String) Strings.translateColorCodes1(title);
+                            String replacetitleColor = titleColor
+                                    .replace("{player}", p.getName())
+                                    .replace("{total}", String.valueOf(cfgM.getPlayers().getInt("counts")))
+                                    .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+
+                            String subTitle = (String) plugin.getConfig().get("message.subtitle");
+                            String subTitleColor = (String) Strings.translateColorCodes1(subTitle);
+                            String replacesubTitleColor = subTitleColor
+                                    .replace("{player}", p.getName())
+                                    .replace("{number}", String.valueOf(cfgM.getPlayers().getInt(uuid + ".place")));
+
+                            int time = plugin.getConfig().getInt("message.time") * 20;
+                            plugin.nms.sendTitleMessage(p, replacetitleColor, replacesubTitleColor, time);
+                        }
                     }
                 }
             } else {
                 Strings.translateColorCodes(p, replacedMessageJoin);
             }
         }
+        */
     }
 
 
@@ -159,7 +406,6 @@ public class Api {
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
                 String uuid = listOfFiles[i].getName().replace(".dat", "");
-                //p.sendMessage(uuid);
 
                 if (!cfgM.getPlayers().contains(uuid)) {
                     int counts = cfgM.getPlayers().getInt("counts");
