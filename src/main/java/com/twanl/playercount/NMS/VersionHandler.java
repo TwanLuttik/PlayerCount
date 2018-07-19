@@ -11,4 +11,6 @@ public abstract interface VersionHandler {
     public abstract void sendClickableHovarableMessageURL(Player p, String clickabletext, String hovertext, String URL);
 
     public abstract void sendClickableMessage(Player player, String clickabletext, String runcommand);
+
+    public abstract void sendTitleMessage(Player p, String Title, String subTitle, int time);
 }

@@ -3,6 +3,8 @@ package com.twanl.playercount.NMS.v1_8;
 import com.twanl.playercount.NMS.VersionHandler;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -25,5 +27,25 @@ public class v1_8_R3 implements VersionHandler {
                 "\"value\":\"" + runcommand + "\"}}");
         PacketPlayOutChat packet = new PacketPlayOutChat(chat);
         ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+    }
+
+    public void sendTitleMessage(Player p, String Title, String subTitle, int time) {
+        PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
+
+        if (Title != null) {
+            IChatBaseComponent chatBaseTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + Title + "\"}");
+            PacketPlayOutTitle pTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, chatBaseTitle);
+            connection.sendPacket(pTitle);
+        }
+
+        if (subTitle != null) {
+            IChatBaseComponent chatBaseSubTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + subTitle + "\"}");
+            PacketPlayOutTitle pSubTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, chatBaseSubTitle);
+            connection.sendPacket(pSubTitle);
+
+        }
+
+        PacketPlayOutTitle length = new PacketPlayOutTitle(5, time, 5);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(length);
     }
 }
