@@ -2,7 +2,9 @@
 # PlayerCount, Created By Twan L
 #
 update_message: true
-use_custom_file: true
+
+# you can choose between: none, file, sql
+database: sql
 
 # this is when a player joined the server for the first time
 first_join:
@@ -12,6 +14,13 @@ first_join:
   - '&a&o{player}&f&o is the (&e&o{total}#&r)&o player on this server!'
   - '&f&oThank you for playing!'
 
+  # to disable this function just put ''
+  # time is in seconds
+  title: '&a&o{player}&f&o is the (&e&o{total}#&r)&o player on this server!'
+  subtitle: '&f&oThank you for playing!'
+  time: 3
+  broadcast_title: false
+
 # this is when a player already joined the server
 default_join:
   use: true
@@ -19,6 +28,15 @@ default_join:
   text:
   - '&f&oYou joined as (&e&o{number}#&r)&o on this server!'
   - '&f&oThank you for playing!'
+
+  # to disable this function just put ''
+  # time is in seconds
+  title: '&f&oYou joined as (&e&o{number}#&r)&o on this server!'
+  subtitle: '&f&oThank you for playing!'
+  time: 3
+  broadcast_title: false
+
+
 
 
 # if use_custom_file = false, than you can use only a first time message
@@ -31,8 +49,25 @@ message:
   - '&a&o{player}&f&o is the (&e&o{number}#&r)&o player on this server!'
   - '&f&oThank you for playing!'
 
+  # to disable this function just put ''
+  # time is in seconds
+  title: '&a&o{player}&f&o is the (&e&o{number}#&r)&o player on this server!'
+  subtitle: '&f&oThank you for playing!'
+  time: 3
+  broadcast_title: false
+
+
 # enable your worlds where the message would be send
 enable_worlds:
 - world
 - world_nether
 - world_the_end
+
+
+mySQL:
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: ""
+  database: "player_data"
+  table: "players"
