@@ -184,11 +184,16 @@ public class Strings {
     public static String reset = ChatColor.RESET + "";
 
 
-    public static String logName = ChatColor.GREEN + "[PlayerCount] ";
+    public static String logName = ChatColor.GREEN + "[PlayerCount] " + ChatColor.RESET;
+    public static String prefix = gray + "[" + gold + "PlayerCount" + gray + "] " + ChatColor.RESET;
     public static String noPerm = ChatColor.RED + "" + ChatColor.BOLD + "* You don't have permissions to do that!";
 
-    public static void translateColorCodes (Player p, String text) {
+    public static void translateColorCodes(Player p, String text) {
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', text));
+    }
+
+    public static String translateColorCodes1(String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
 
