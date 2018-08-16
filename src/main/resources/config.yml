@@ -4,7 +4,7 @@
 update_message: true
 
 # you can choose between: none, file, sql
-database: sql
+database: file
 
 # this is when a player joined the server for the first time
 first_join:
