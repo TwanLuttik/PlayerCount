@@ -43,12 +43,15 @@ public class PlayerCount extends JavaPlugin {
 
     public void onEnable() {
 
-        // enable mySQL if enabled in config
+        // if the database methode is SQL than use the sql else use the file methode
         if (getConfig().get("database").equals("sql")) {
-            SqlLib sql = new SqlLib();
             mysqlSetup();
-            sql.createTable();
+            SqlLib sql = new SqlLib();
+            try {
+                sql.createTable();
+            } catch (Exception ignored) {}
         }
+
 
         getServerVersion();
         checker = new UpdateChecker(this);
