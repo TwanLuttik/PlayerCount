@@ -43,7 +43,6 @@ public class SqlLib implements Listener {
                 Bukkit.getConsoleSender().sendMessage(Strings.logName + "created table: " + Strings.green + plugin.table);
                 statement.executeUpdate();
 
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -130,7 +129,7 @@ public class SqlLib implements Listener {
     public boolean tableExist() {
         try {
             DatabaseMetaData dbm = plugin.getConnection().getMetaData();
-            ResultSet tables = dbm.getTables(null, null, "player_data", null);
+            ResultSet tables = dbm.getTables(null, null, plugin.table, null);
             if (tables.next()) {
                 return true;
             } else {
