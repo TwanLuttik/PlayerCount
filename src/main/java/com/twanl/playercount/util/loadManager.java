@@ -37,7 +37,9 @@ public class loadManager {
         firstJoin_BroadCast.put(1, plugin.getConfig().getBoolean("first_join.broadcast"));
         firstJoin_Title_BroadCast.put(1, plugin.getConfig().getBoolean("first_join.broadcast_title"));
         for (String key : plugin.getConfig().getStringList("first_join.text")) {
-            firstJoin_Message.add(key);
+            if (plugin.getConfig().isSet("first_join.text")) {
+                firstJoin_Message.add(key);
+            }
         }
         firstJoin_Title.add(plugin.getConfig().getString("first_join.title"));
         firstJoin_SubTitle.add(plugin.getConfig().getString("first_join.subtitle"));
@@ -48,7 +50,9 @@ public class loadManager {
         defaultJoin_BroadCast.put(1, plugin.getConfig().getBoolean("default_join.broadcast"));
         defaultJoin_Title_BroadCast.put(1, plugin.getConfig().getBoolean("default_join.broadcast_title"));
         for (String key : plugin.getConfig().getStringList("default_join.text")) {
-            defaultJoin_Message.add(key);
+            if (plugin.getConfig().isSet("default_join.text")) {
+                defaultJoin_Message.add(key);
+            }
         }
         defaultJoin_Title.add(plugin.getConfig().getString("default_join.title"));
         defaultJoin_SubTitle.add(plugin.getConfig().getString("default_join.subtitle"));
